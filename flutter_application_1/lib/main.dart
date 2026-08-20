@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/splash_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized;
+ // await Supabase.initialize(
+   // url: ,
+   // publishableKey: ,
+ // );
   runApp(const MyApp());
 }
 

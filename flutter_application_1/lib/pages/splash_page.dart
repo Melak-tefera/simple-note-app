@@ -41,7 +41,7 @@ SplashPage({super.key});
                     borderRadius: BorderRadius.circular(15)
                   ),
                   width: double.infinity,
-                  child: Center(child: Text("Get Start",
+                  child: Center(child: Text("Get Started",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 30,
