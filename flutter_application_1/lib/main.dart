@@ -4,10 +4,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized;
- // await Supabase.initialize(
-   // url: ,
-   // publishableKey: ,
- // );
+  await Supabase.initialize(
+    url: "https://zwhsuthsypqoqffezmbn.supabase.co",
+    publishableKey:"sb_publishable_Uv79i1ae96amwGbRSeDvrQ_qXdpbf8V" ,
+  );
   runApp(const MyApp());
 }
 

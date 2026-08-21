@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/homepage.dart';
 import 'package:flutter_application_1/pages/signuppage.dart';
+import 'package:flutter_application_1/services/authentication/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,6 +11,90 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final service= AuthService();
+  final email=TextEditingController();
+  final password=TextEditingController();
+  bool isloading=false;
+  Future<void> login()async{
+    if (email.text.trim().isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Colors.lightGreen,
+          title: Center(child: const Text('Error', style: TextStyle(color: Colors.white),)),
+          content: const Text('Please enter your email', style: TextStyle(color: Colors.white),),
+          actions: [
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.lightGreen[800])
+              ),
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK', style: TextStyle(color: Colors.white),),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+    if (password.text.trim().isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Colors.lightGreen,
+          title: Center(child: const Text('Error', style: TextStyle(color: Colors.white),)),
+          content: const Text('Please enter your password', style: TextStyle(color: Colors.white),),
+          actions: [
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.lightGreen[800])
+              ),
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK', style: TextStyle(color: Colors.white),),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      isloading=true;
+    });
+    
+    try {
+      await service.signin(email: email.text, password: password.text
+        );
+      Navigator.pushReplacement(context,MaterialPageRoute(builder: (_) =>  Homepage()),);
+      
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context)=>AlertDialog(
+           backgroundColor: Colors.lightGreen,
+           title: Center(child: const Text("error", style: TextStyle(color: Colors.white),)),
+           content:  Text("the error is $e", style: TextStyle(color: Colors.white),),
+           actions: [
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.lightGreen[800])
+              ),
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK', style: TextStyle(color: Colors.white),),
+            ),
+          ],
+
+        ) );
+      
+    }
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -58,6 +144,7 @@ class _LoginPageState extends State<LoginPage> {
 
               // Email / Username field
               TextField(
+                controller: email,
                 decoration: InputDecoration(
                   labelText: 'Enter Your Email',
                   border: OutlineInputBorder(
@@ -70,6 +157,7 @@ class _LoginPageState extends State<LoginPage> {
 
               // Password field
               TextField(
+                controller: password,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Password',
@@ -83,9 +171,7 @@ class _LoginPageState extends State<LoginPage> {
 
               // Login button
               ElevatedButton(
-                onPressed: () {
-                  // TODO: handle login
-                },
+                onPressed: ()=>login(),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightGreen,
                   foregroundColor: Colors.white,
@@ -94,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text(
+                child: isloading ?  Center(child: CircularProgressIndicator()) : Text(
                   'Login',
                   style: TextStyle(fontSize: 16),
                 ),
