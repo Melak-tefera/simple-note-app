@@ -7,6 +7,8 @@ Homepage({super.key});
 
     return Scaffold(
     appBar: AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
       title: Text('Simple Notes',
        textAlign: TextAlign.center,
                 style: TextStyle(
