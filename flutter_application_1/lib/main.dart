@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/loginpage.dart';
 import 'package:flutter_application_1/pages/splash_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -20,6 +21,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home:SplashPage() ,
+      routes: {
+        '/login': (_) =>  LoginPage(),
+      },
+      
     );
   }
 }
