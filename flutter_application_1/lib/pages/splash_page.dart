@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/loginpage.dart';
+import 'package:flutter_application_1/services/authentication/auth_getway.dart';
 
 class SplashPage extends StatelessWidget {
 SplashPage({super.key});
@@ -33,7 +34,7 @@ SplashPage({super.key});
               ),
               SizedBox(height: 20,),
               GestureDetector(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage())),
+                onTap: () => AuthGate(),
                 child: Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(

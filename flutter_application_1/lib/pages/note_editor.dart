@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
-class TextEditor extends StatelessWidget {
+class TextEditor extends StatefulWidget {
 TextEditor({super.key});
+
+  @override
+  State<TextEditor> createState() => _TextEditorState();
+}
+
+class _TextEditorState extends State<TextEditor> {
     @override
     Widget build(BuildContext context) {
 
