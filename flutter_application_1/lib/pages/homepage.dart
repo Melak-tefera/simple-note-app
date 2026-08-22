@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/note_editor.dart';
 import 'package:flutter_application_1/pages/utils/container.dart';
 import 'package:flutter_application_1/services/authentication/auth_service.dart';
 
@@ -15,6 +16,11 @@ class _HomepageState extends State<Homepage> {
   Future<void> logout()async{
     await service.signout();
     Navigator.of(context).popUntil(ModalRoute.withName('/login'),);
+  }
+  @override
+  void dispose() {
+    documenttitle.dispose();
+    super.dispose();
   }
 
   @override
@@ -73,12 +79,19 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
               ),
+              SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(onPressed: (){}, child: Text("Done")),
+                  TextButton(
+                    style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.lightGreen[800])),
+                    onPressed: ()=>TextEditor(noteId: "",), 
+                    child: Text("Done", style: TextStyle(color: Colors.white),)),
                   SizedBox(width: 10,),
-                  TextButton(onPressed: ()=>Navigator.pop(context), child: Text("Cancel"))
+                  TextButton(
+                    style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.lightGreen[800])),
+                    onPressed: ()=>Navigator.pop(context), 
+                    child: Text("Cancel", style: TextStyle(color: Colors.white),))
 
                 ],
               ),
